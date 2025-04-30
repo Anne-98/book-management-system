@@ -1,21 +1,14 @@
 const express = require("express");
 const authMiddleware = require("../middlewares/auth.middleware");
 const bookRoute = express.Router();
+const bookController = require("../controllers/book.controller");
 
-// Add a book
-bookRoute.post('/add', authMiddleware, (req, res) => {
-    console.log("Book added");
-    res.status(201).json({
-        message: "Book added successfully"
-    });
-})
+bookRoute.use(authMiddleware);
 
-// Get all books
-bookRoute.get('getAll', authMiddleware, (req, res) => {
-    console.log("Fetching all books");
-    res.status(200).json({
-        message: "Fetched all books successfully"
-    });
-})
+bookRoute.post('/add', bookController.createBook)
+bookRoute.get('/getAll', bookController.getAllBooks)
+bookRoute.get('/getOne/:id', bookController.getOneBook)
+bookRoute.put('/updateOne/:id', bookController.updateBook)
+bookRoute.delete('/deleteOne/:id', bookController.deleteBook)
 
 module.exports = bookRoute;

@@ -1,4 +1,4 @@
-const Book = require("..models/book.models");
+const Book = require("../models/book.models");
 const jwt = require("jsonwebtoken");
 
 // Create a new book
