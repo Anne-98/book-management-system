@@ -5,7 +5,7 @@ const { errorResponse, successResponse } = require("../utils/response");
 
 // Register a new user
 exports.register = async (req, res) => {
-  const { username, email, password } = req.body;
+  const { firstName, lastName, phoneNumber,  email, password } = req.body;
 
   try {
     // Check if user already exists
@@ -13,18 +13,34 @@ exports.register = async (req, res) => {
     if (existingUser) {
       return errorResponse(res, 400, "User already exists");
     }
-
+    
     // Encrypt the password
     const hashedPassword = await bcrypt.hash(password, 10);
-
+    
     // Create a new user in the database
-    const user = await User.create({
-      username,
+    const newUser = new User({
+      firstName, 
+      lastName,
+      phoneNumber,
       email,
       password: hashedPassword,
     });
     
-    return successResponse(res, 201, "User registered successfully", user);
+    const user = await newUser.save();
+    // Create a token for the new user
+    
+    const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, {
+      expiresIn: process.env.JWT_EXPIRATION,
+    });
+    
+    return successResponse(res, 201, "User registered successfully", {
+      token,
+      user: {
+        id: user._id,
+        name: user.firstName + " " + user.lastName,
+        phoneNumber: user.phoneNumber,
+        email: user.email,
+      }});
   } catch (err) {
     return errorResponse(res, 500, "Registration error", err.message);
   }

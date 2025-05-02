@@ -13,11 +13,7 @@ const app = express();
 const port = process.env.PORT || 3000;
 
 app.use(
-  cors({
-    origin: "http://localhost:3000",
-    methods: ["GET", "POST", "PUT", "DELETE"],
-    credentials: true,
-  })
+  cors()
 );
 app.use(
   session({
