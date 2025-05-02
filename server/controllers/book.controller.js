@@ -1,5 +1,6 @@
 const Book = require("../models/book.models");
 const jwt = require("jsonwebtoken");
+const { successResponse, errorResponse } = require("../utils/response");
 
 // Create a new book
 
@@ -12,13 +13,13 @@ exports.createBook = async (req, res) => {
             author,
             genre,
             publicationDate, 
-            createdBy: req.user.id,
+            createdBy: /*req.user.id*/ "64f1b0c4e4b0a2d3f8e4b0c4",
             price
         });
         await newBook.save();
-        res.status(201).json({message: "Successfully added", newBook})
+        successResponse(res, 201, "Book created successfully", newBook);
     }catch(err){
-        res.status(500).json({message: "Please Provide required fields", err})
+        errorResponse(res, 500, "Failed to create book", err);
     }
 };
 
@@ -26,10 +27,10 @@ exports.createBook = async (req, res) => {
 
 exports.getAllBooks = async (req, res) => {
     try{
-        const books = await Book.find({createdBy: req.user.id});
-        res.status(200).json(books);
+        const books = await Book.find({});
+        successResponse(res, 200, "Books fetched successfully", books);
     }catch(err){
-        res.status(500).json({message: "Failed to provide details", err})
+        errorResponse(res, 500, "Failed to fetch books", err);
     }
 }
 
@@ -38,12 +39,12 @@ exports.getAllBooks = async (req, res) => {
 exports.getOneBook = async (req, res) => {
     try{
         const book = await Book.findById({createdBy: req.user.id});
-        if(!book?.length) {
-            res.status(404).json({message: "Book does not exist"})
+        if(!book) {
+            errResponse(res, 404, "Book does not exist");
         }
-        res.status(200).json(book)
+        successResponse(res, 200, "Book fetched successfully", book);
     }catch(err){
-        res.status(500).json({message: "Failed to fetch the book", err})
+        errorResponse(res, 500, "Failed to fetch book", err);
     }
 }
 
@@ -56,12 +57,12 @@ exports.updateBook = async (req, res) => {
             req.body, 
             { new: true }
         );
-        if (!updatedBook?.length) {
-            res.status(404).json({message: "Book does not exist"})
+        if (!updatedBook) {
+            errorResponse(res, 404, "Book does not exist");
         }
-        res.status(201).json({message: "Successfully updated"}, updatedBook)
+        successResponse(res, 200, "Book updated successfully", updatedBook);
     }catch(err){
-        res.status(500).json({message: "Failed to update", err})
+        errorResponse(res, 500, "Failed to update book", err);
     }
 }
 
@@ -73,11 +74,11 @@ exports.deleteBook = async (req, res) => {
         const deletedBook = await Book.findOneAndDelete(
             {_id: req.params.id, createdBy: req.user.id}
             )
-        if(!deletedBook?.length) {
-            res.status(404).json({message: "Book does not exist"})
+        if(!deletedBook) {
+            errorResponse(res, 404, "Book does not exist");
         }
-        res.status(200).json({message: "Successfully deleted"})
+        successResponse(res, 200, "Book deleted successfully", deletedBook);
         }catch(err){
-            res.status(500).json({message: "Failed to delete", err})
+            errorResponse(res, 500, "Failed to delete book", err);  
         }
 }

@@ -1,6 +1,7 @@
 const User = require("../models/user.models");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
+const { errorResponse, successResponse } = require("../utils/response");
 
 // Register a new user
 exports.register = async (req, res) => {
@@ -10,7 +11,7 @@ exports.register = async (req, res) => {
     // Check if user already exists
     const existingUser = await User.findOne({ email });
     if (existingUser) {
-      return res.status(400).json({ message: "User already exists" });
+      return errorResponse(res, 400, "User already exists");
     }
 
     // Encrypt the password
@@ -23,11 +24,9 @@ exports.register = async (req, res) => {
       password: hashedPassword,
     });
     
-    res.status(201).json({ message: "User registered successfully!" });
+    return successResponse(res, 201, "User registered successfully", user);
   } catch (err) {
-    res
-      .status(500)
-      .json({ message: "Error registering user", error: err.message });
+    return errorResponse(res, 500, "Registration error", err.message);
   }
 };
 
@@ -38,21 +37,27 @@ exports.login = async (req, res) => {
   try {
     // Find the user by email
     const user = await User.findOne({ email });
-    if (!user) return res.status(400).json({ message: "User not found" });
+    if (!user) return errorResponse(res, 404, "User not found");
 
     // Compare the payload password with the hashed password
     const validPassword = await bcrypt.compare(password, user.password);
-    if (!validPassword)
-      return res.status(401).json({ message: "Invalid password" });
-
+    if (!validPassword) return errorResponse(res, 400, "Invalid password");
+    
     // Create a token if password is valid
     const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, {
       expiresIn: "1h",
     });
 
     // Respond with the token
-    res.status(200).json({ message: "Login successful!", token });
+    return successResponse(res, 200, "Login successful", {
+      token,
+      user: {
+        id: user._id,
+        username: user.username,
+        email: user.email,
+      },
+    });
   } catch (err) {
-    res.status(500).json({ message: "Login error", error: err.message });
+    return errorResponse(res, 500, "Login error", err.message);
   }
 };
