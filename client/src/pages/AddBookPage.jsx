@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { addBook } from "../api/bookApi";
 
-const AddBook = () => {
+const AddBookPage = () => {
   const [book, setBook] = useState({
     title: "",
     author: "",
@@ -80,4 +80,4 @@ const AddBook = () => {
   );
 };
 
-export default AddBook;
+export default AddBookPage;

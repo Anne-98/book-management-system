@@ -1,6 +1,6 @@
 import React from 'react';
 
-const EditBook = () => {
+const EditBookPage = () => {
     
     
     return(
@@ -10,4 +10,4 @@ const EditBook = () => {
     )
 }
 
-export default EditBook;
+export default EditBookPage;
