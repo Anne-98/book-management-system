@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { login } from "../api/authApi";
 import { useNavigate } from "react-router-dom";
+import UserAuthForm from "../common/UserAuthForm";
 
 const LogInPage = () => {
   const [formData, setFormData] = useState({
@@ -36,28 +37,28 @@ const LogInPage = () => {
 
   return (
     <>
-      <form onSubmit={handleSubmit} method="post">
-        <h1>Log In Page</h1>
-        <p style={{ color: response?.success ? "green" : "red" }}>
-          {response?.message}
-        </p>
-
-        <input
-          name="email"
-          onChange={handleChange}
-          placeholder="email"
-          type="email"
-          required
+        {response?.message && (
+          <p
+            className={`text-sm mb-4 ${
+              response.success ? "text-green-600" : "text-red-600"
+            }`}
+          >
+            {response.message}
+          </p>
+        )}
+        <UserAuthForm
+          header="Log In"
+          formData={formData}
+          handleChange={handleChange}
+          handleSubmit={handleSubmit}
+          showFields={{
+            firstName: false,
+            lastName: false,
+            phoneNumber: false,
+            email: true,
+            password: true,
+          }}
         />
-        <input
-          name="password"
-          onChange={handleChange}
-          placeholder="password"
-          type="password"
-          required
-        />
-        <button type="submit">Log In</button>
-      </form>
     </>
   );
 };

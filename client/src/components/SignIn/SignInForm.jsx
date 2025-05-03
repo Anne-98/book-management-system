@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { login, register } from "../../api/authApi";
 import {useNavigate} from "react-router-dom"
+import UserAuthForm from "../../common/UserAuthForm";
 
 const SignInForm = () => {
 
@@ -39,17 +40,20 @@ const SignInForm = () => {
   
   
   return (
-    <div className="sign-in-form">
-      <h2>Sign In</h2>
-      <form onSubmit={handleSubmit} method="post">
-        <input onChange={handleChange} name="firstName" type="text" placeholder="First Name" required />
-        <input onChange={handleChange} name="lastName" type="text" placeholder="Last Name" required />
-        <input onChange={handleChange} name="phoneNumber" type="text" placeholder="Phone Number" required />
-        <input onChange={handleChange} name="email" type="email" placeholder="Email" required />
-        <input onChange={handleChange} name="password" type="password" placeholder="Password" required />
-        <button type="submit">Sign In</button>
-      </form>
-    </div>
+
+    <UserAuthForm
+      header="Sign In"
+      formData={formData}
+      handleChange={handleChange}
+      handleSubmit={handleSubmit}
+      showFields={{
+        firstName: true,
+        lastName: true,
+        phoneNumber: true,
+        email: true,
+        password: true,
+      }}
+    />
   );
 }
 

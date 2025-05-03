@@ -51,55 +51,14 @@ const EditBookPage = () => {
     }
     
     return (
-      //   <div>
-      //     <h1 className="text-3xl font-bold underline">Edit Book</h1>
-      //     <form onSubmit={handleSubmit}>
-      //       <input
-      //         type="text"
-      //         name="title"
-      //         value={book.title}
-      //         onChange={handleChange}
-      //         placeholder="Title"
-      //         required
-      //       />
-      //       <input
-      //         type="text"
-      //         name="genre"
-      //         value={book.genre}
-      //         onChange={handleChange}
-      //         placeholder="Genre"
-      //         required
-      //       />
-      //       <input
-      //         type="date"
-      //         name="publicationDate"
-      //         value={book.publicationDate.split("T")[0]}
-      //         onChange={handleChange}
-      //         required
-      //       />
-      //       <input
-      //         type="number"
-      //         name="price"
-      //         value={book.price}
-      //         onChange={handleChange}
-      //         placeholder="Price"
-      //         required
-      //       />
-      //       <textarea
-      //         name="description"
-      //         value={book.description}
-      //         onChange={handleChange}
-      //         placeholder="Description"
-      //       ></textarea>
-      //       <button type="submit">Update Book</button>
-      //     </form>
-      //   </div>
+      //   
       <div className="p-6">
-        <h1 className="text-3xl font-semibold mb-4">Edit Book</h1>
         <BookFormComponent
           book={book}
           handleChange={handleChange}
           handleSubmit={handleSubmit}
+          disableFields={{genres: true}}
+          header="Update Book"
         />
       </div>
     );

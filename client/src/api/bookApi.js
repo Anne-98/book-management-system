@@ -14,13 +14,19 @@ export const addBook = (data) => {
 };
 
 export const updateBook = (id, data) =>{
-  axiosInstance.put(`/books/updateOne/${id}`, data, {
+  return axiosInstance.put(`/books/updateOne/${id}`, data, {
     headers: {
       // "Content-Type": "multipart/form-data",
       Authorization: `Bearer ${localStorage.getItem("token")}`,
     },
   });
 }
+export const deleteBook = (id) => {
+  return axiosInstance.delete(`/books/deleteOne/${id}`, {
+    headers: {
+      // "Content-Type": "multipart/form-data",
+      Authorization: `Bearer ${localStorage.getItem("token")}`,
+    },
+  });
+};
 
-export const deleteBook = (id) =>
-  axiosInstance.delete(`/books/deleteOne/${id}`);

@@ -73,7 +73,7 @@ exports.deleteBook = async (req, res) => {
 
     try{
         const deletedBook = await Book.findOneAndDelete(
-            {_id: req.params.id, createdBy: req.user.id}
+            {_id: req.params.id}
             )
         if(!deletedBook) {
             errorResponse(res, 404, "Book does not exist");
