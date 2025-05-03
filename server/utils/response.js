@@ -1,6 +1,6 @@
 const successResponse = (res, statusCode, message, data) => {
     return res.status(statusCode).json({
-        status: "success",
+        success: true,
         message,
         data,
     });
@@ -8,7 +8,7 @@ const successResponse = (res, statusCode, message, data) => {
 
 const errorResponse = (res, statusCode, message, error = null) => {
     return res.status(statusCode).json({
-        status: "error",
+        success: false,
         message,
         error,
     });

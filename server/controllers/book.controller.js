@@ -7,14 +7,16 @@ const { successResponse, errorResponse } = require("../utils/response");
 exports.createBook = async (req, res) => {
     
     try{
-        const { title, author, genre, publicationDate, price } = req.body;
+        const { title, author, genre, publicationDate, price, description } = req.body;
+
         const newBook = new Book({
             title,
             author,
             genre,
             publicationDate, 
             createdBy: /*req.user.id*/ "64f1b0c4e4b0a2d3f8e4b0c4",
-            price
+            price,
+            description
         });
         await newBook.save();
         successResponse(res, 201, "Book created successfully", newBook);
@@ -35,12 +37,11 @@ exports.getAllBooks = async (req, res) => {
 }
 
 // Get a book
-
-exports.getOneBook = async (req, res) => {
+exports.getOneBook = async (req, res) => {    
     try{
-        const book = await Book.findById({createdBy: req.user.id});
+        const book = await Book.findById({_id: req.params.id});
         if(!book) {
-            errResponse(res, 404, "Book does not exist");
+            errorResponse(res, 404, "Book does not exist");
         }
         successResponse(res, 200, "Book fetched successfully", book);
     }catch(err){

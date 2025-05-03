@@ -8,6 +8,7 @@ dotenv.config();
 
 const authRoutes = require("./routes/auth.routes");
 const bookRoutes = require("./routes/book.routes");
+const genreRoutes = require("./routes/genre.routes");
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -28,6 +29,7 @@ app.use(express.json());
 // Routes
 app.use("/api/auth", authRoutes);
 app.use("/api/books", bookRoutes);
+app.use("/api/genres", genreRoutes);
 
 // Connect to MongoDB and start server
 mongoose

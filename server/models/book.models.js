@@ -10,8 +10,9 @@ const bookSchema = new mongoose.Schema({
         required: true,
     },
     genre: {
-        type: String,
-        required: true,
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Genre',
+        required: true
     },
     publicationDate: {
         type: Date,
@@ -24,7 +25,10 @@ const bookSchema = new mongoose.Schema({
     price: {
         type: Number,
         required: true,
-    }
+    },
+    description: {
+        type: String,
+    },
 },
 {
     timestamps: true,
