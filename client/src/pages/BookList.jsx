@@ -2,16 +2,23 @@ import React, { useEffect, useState } from "react";
 import { getAllBooks } from "../api/bookApi";
 
 const BookList = () => {
+  
+
   const [books, setBooks] = useState([]);
   
   useEffect(() => {
-    getAllBooks()
-      .then((res) => {
-        setBooks(res.data);
-      })
-      .catch((err) => {
-        console.error("Error fetching books:", err);
-      });
+    
+    const fetchBooks = async () => {
+      try {
+        const response = await getAllBooks();
+        const { data } = response.data;
+        setBooks(data);
+      } catch (err) {
+        console.error(err);
+      }
+    };
+    fetchBooks();
+    
   }, []);
   
   return (

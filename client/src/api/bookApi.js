@@ -5,11 +5,22 @@ export const getAllBooks = () => axiosInstance.get("/books/getAll");
 export const getBookById = (id) => axiosInstance.get(`/books/getOne/${id}`);
 
 export const addBook = (data) => {
-  axiosInstance.post("/books/add", data);
+  return axiosInstance.post("/books/add", data, {
+    headers: {
+      // "Content-Type": "multipart/form-data",
+      "Authorization": `Bearer ${localStorage.getItem("token")}`,
+    },
+  });
 };
 
-export const updateBook = (id, data) =>
-  axiosInstance.put(`/books/updateOne/${id}`, data);
+export const updateBook = (id, data) =>{
+  axiosInstance.put(`/books/updateOne/${id}`, data, {
+    headers: {
+      // "Content-Type": "multipart/form-data",
+      Authorization: `Bearer ${localStorage.getItem("token")}`,
+    },
+  });
+}
 
 export const deleteBook = (id) =>
   axiosInstance.delete(`/books/deleteOne/${id}`);

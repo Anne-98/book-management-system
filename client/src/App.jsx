@@ -6,6 +6,7 @@ import BookList from './pages/BookList'
 import SignInPage from './pages/SignInPage'
 import AddBookPage from './pages/AddBookPage'
 import EditBookPage from './pages/EditBookPage'
+import LogInPage from './pages/LogInPage'
 
 function App() {
 
@@ -19,6 +20,7 @@ function App() {
         <Route path='/add-book' element={<AddBookPage />}/>
         <Route path='/edit-book/:id' element={<EditBookPage />}/>
         <Route path='/sign-in' element={<SignInPage />}/>
+        <Route path='/log-in' element={<LogInPage />}/>
       </Routes>
     </div>
   )
