@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { getAllBooks } from "../api/bookApi";
 import { Link } from "react-router-dom";
+import Header from "../components/Home/Header";
 
 const BookList = () => {
   
@@ -23,9 +24,10 @@ const BookList = () => {
   }, []);
   
   return (
-    <div className="max-w-4xl mx-auto p-6">
-      <h1 className="text-2xl font-bold mb-4 text-center">All Books</h1>
-      <ul className="space-y-2">
+    <div className="min-h-screen bg-gray-50 flex flex-col">
+      <Header />
+      <h2 className="text-xl font-semibold text-gray-900 py-4">All Books</h2>
+      <ul className="space-y-2 py-2">
         {books.map((book) => (
           <li key={book._id}>
             <Link

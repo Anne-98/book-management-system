@@ -9,14 +9,12 @@ const BookFormComponent = ({
   genres = [],
   header = ""
 }) => {
-  console.log("genres 2: ", header);
   return (
     <form
       onSubmit={handleSubmit}
-      className="space-y-4 border border-gray-300 p-6 rounded-lg max-w-xl mx-auto"
+      className="space-y-4 p-6 rounded-lg max-w-xl mx-auto"
     >
-    
-    <h2 className="text-xl font-semibold text-gray-900">{header}</h2>
+      <h2 className="text-xl font-semibold text-gray-900">{header}</h2>
 
       <input
         type="text"
@@ -33,7 +31,7 @@ const BookFormComponent = ({
           <select
             name="genre"
             onChange={handleChange}
-            value={book.genre}
+            value={book.genre?._id || book.genre}
             className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
           >
             <option value="">Select a genre</option>

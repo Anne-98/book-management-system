@@ -3,11 +3,14 @@ import { useNavigate } from "react-router-dom";
 import { addBook } from "../api/bookApi";
 import { getAllGenres } from "../api/genreApi";
 import BookFormComponent from "../common/BookFormComponent";
+import { useSelector, useDispatch } from "react-redux";
+import Header from "../components/Home/Header";
 
 const AddBookPage = () => {
   // fetching existing genres from the server
   const [genres, setGenres] = useState([]);
   const [response, setResponse] = useState({});
+  const userState = useSelector((state) => state.user);
   
   const [book, setBook] = useState({
     title: "",
@@ -15,7 +18,7 @@ const AddBookPage = () => {
     genre: "",
     publicationDate: "",
     price: "",
-    createdBy: "64f1b0c4e4b0a2d3f8e4b0c4",
+    createdBy: userState.user.id,
     description: "",
   });
 
@@ -56,8 +59,8 @@ const AddBookPage = () => {
   };
 
   return (
-    <div>
-      
+    <div className="min-h-screen bg-gray-50 flex flex-col">
+      <Header />
       <BookFormComponent
         book={book}
         handleChange={handleChange}
