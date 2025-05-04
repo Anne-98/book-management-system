@@ -7,16 +7,16 @@ const { successResponse, errorResponse } = require("../utils/response");
 exports.createBook = async (req, res) => {
     
     try{
-        const { title, author, genre, publicationDate, price, description } = req.body;
+        const { title, author, genre, publicationDate, price, description,createdBy } = req.body;
 
         const newBook = new Book({
-            title,
-            author,
-            genre,
-            publicationDate, 
-            createdBy: /*req.user.id*/ "64f1b0c4e4b0a2d3f8e4b0c4",
-            price,
-            description
+          title,
+          author,
+          genre,
+          publicationDate,
+          createdBy: createdBy,
+          price,
+          description,
         });
         await newBook.save();
         successResponse(res, 201, "Book created successfully", newBook);
@@ -39,7 +39,7 @@ exports.getAllBooks = async (req, res) => {
 // Get a book
 exports.getOneBook = async (req, res) => {    
     try{
-        const book = await Book.findById({_id: req.params.id});
+        const book = await Book.findById({_id: req.params.id}).populate("genre");
         if(!book) {
             errorResponse(res, 404, "Book does not exist");
         }
@@ -53,8 +53,11 @@ exports.getOneBook = async (req, res) => {
 
 exports.updateBook = async (req, res) => {
     try{
+        const {
+          createdBy
+        } = req.body;
         const updatedBook = await Book.findOneAndUpdate(
-            {_id: req.params.id, createdBy: req.user.id},
+            {_id: req.params.id, createdBy: createdBy},
             req.body, 
             { new: true }
         );
