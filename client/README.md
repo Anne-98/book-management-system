@@ -1,12 +1,54 @@
-# React + Vite
+# 📚 Bookstore Application
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A full-stack web application to manage a digital bookstore. Users can browse books, view details, and registered users can log in to add, edit, and delete their books. Genres are stored and associated properly. All sensitive actions are protected by JWT-based authentication.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 🚀 Features
 
-## Expanding the ESLint configuration
+- Public access to view books and their details
+- Secure user authentication using JWT
+- Authenticated users can:
+  - Add books
+  - Edit their own books
+  - Delete their own books
+- Token verification on all frontend API requests
+- Genre association using MongoDB `ObjectId`, populated in responses
+- Clean, responsive UI built with Tailwind CSS
+- Global state management using Redux Toolkit
+- Modular React components using Vite + React
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+---
+
+## 🛠️ Tech Stack
+
+### Frontend
+- **Vite + React**
+- **Redux Toolkit**
+- **React Router DOM**
+- **Tailwind CSS**
+- **Axios**
+
+### Backend
+- **Node.js**
+- **Express.js**
+- **MongoDB + Mongoose**
+- **JWT Authentication**
+- **dotenv**
+
+---
+
+## 📦 Installation Instructions
+
+### ✅ Prerequisites
+- Node.js & npm
+- MongoDB (local or Atlas)
+- Terminal with Bash or PowerShell
+
+---
+
+## ⚙️ Backend Setup
+
+1. Navigate to the backend directory:
+   ```bash
+   cd backend
